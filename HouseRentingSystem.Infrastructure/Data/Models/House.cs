@@ -32,7 +32,6 @@ namespace HouseRentingSystem.Infrastructure.Data.Models
         public string ImageUrl { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(HousePriceMaxLength)]
         [Comment("Monthly price")]
         [Column(TypeName = "decimal(18,2)")]
         public decimal PricePerMonth { get; set; }
