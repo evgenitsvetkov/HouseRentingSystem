@@ -13,8 +13,8 @@
         public const int HouseDescriptionMaxLength = 500;
         public const int HouseDescriptionMinLength = 50;
 
-        public const int HousePriceMaxLength = 2000;
-        public const int HousePriceMinLength = 0;
+        public const string HousePriceMinLength = "0";
+        public const string HousePriceMaxLength = "2000";
 
         public const int AgentPhoneNumberMaxLength = 15;
         public const int AgentPhoneNumberMinLength = 7;
