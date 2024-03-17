@@ -129,6 +129,12 @@ namespace HouseRentingSystem.Core.Services
             return house.Id;
         }
 
+        public async Task Delete(int houseId)
+        {
+            var house = await repository.GetByIdAsync<House>(houseId);
+            await repository.DeleteAsync(house);           
+        }
+
         public async Task EditAsync(int houseId, HouseFormModel model)
         {
             var house = await repository.GetByIdAsync<House>(houseId);
@@ -150,6 +156,21 @@ namespace HouseRentingSystem.Core.Services
         {
             return await repository.AllReadOnly<House>()
                 .AnyAsync(h => h.Id == id);
+        }
+
+        public async Task<HouseDetailsViewModel?> GetHouseDetailsViewModelByIdAsync(int id)
+        {
+            var house = await repository.AllReadOnly<House>()
+                .Where(h => h.Id == id)
+                .Select(h => new HouseDetailsViewModel()
+                {
+                    Title = h.Title,
+                    Address = h.Address,
+                    ImageUrl = h.ImageUrl,
+                })
+                .FirstOrDefaultAsync();
+
+            return house;
         }
 
         public async Task<HouseFormModel?> GetHouseFormModelByIdAsync(int id)

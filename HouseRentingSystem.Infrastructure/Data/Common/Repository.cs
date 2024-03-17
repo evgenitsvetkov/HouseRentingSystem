@@ -41,5 +41,11 @@ namespace HouseRentingSystem.Infrastructure.Data.Common
         {
             return await DbSet<T>().FindAsync(id);
         }
+
+        public async Task DeleteAsync<T>(T? entity) where T : class
+        {
+            DbSet<T>().Remove(entity);
+            await SaveChangesAsync();
+        }
     }
 }
