@@ -225,6 +225,16 @@ namespace HouseRentingSystem.Core.Services
                 .FirstAsync();
         }
 
+        public async Task<bool> IsRentedAsync(int id)
+        {
+            return await repository.AllReadOnly<House>().AnyAsync(h => h.Id == id && h.RenterId != null);
+        }
+
+        public async Task<bool> IsRentedByUserWithIdAsync(int houseId, string userId)
+        {
+            return await repository.AllReadOnly<House>().AnyAsync(h => h.Id == houseId && h.RenterId == userId);
+        }
+
         public async Task<IEnumerable<HouseIndexServiceModel>> LastThreeHousesAsync()
         {
             return await repository
@@ -238,6 +248,17 @@ namespace HouseRentingSystem.Core.Services
                     Title = h.Title
                 })
                 .ToListAsync();
+        }
+
+        public async Task Rent(int houseId, string userId)
+        {
+            var house = await repository.GetByIdAsync<House>(houseId);
+
+            if (house != null)
+            {
+                house.RenterId = userId;
+                await repository.SaveChangesAsync();
+            }
         }
     }
 }

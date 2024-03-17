@@ -40,5 +40,11 @@ namespace HouseRentingSystem.Core.Contracts
         Task Delete(int houseId);
 
         Task<HouseDetailsViewModel?> GetHouseDetailsViewModelByIdAsync(int id);
+
+        Task<bool> IsRentedAsync(int id);
+
+        Task<bool> IsRentedByUserWithIdAsync(int houseId, string userId);
+
+        Task Rent(int houseId, string userId);
     }
 }
