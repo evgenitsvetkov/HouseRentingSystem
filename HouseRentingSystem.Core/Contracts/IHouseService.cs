@@ -1,4 +1,5 @@
-﻿using HouseRentingSystem.Core.Models.Home;
+﻿using HouseRentingSystem.Core.Enumerations;
+using HouseRentingSystem.Core.Models.Home;
 using HouseRentingSystem.Core.Models.House;
 
 namespace HouseRentingSystem.Core.Contracts
@@ -12,5 +13,40 @@ namespace HouseRentingSystem.Core.Contracts
         Task<bool> CategoryExistAsync(int categoryId);
 
         Task<int> CreateAsync(HouseFormModel model, int agentId);
+
+        Task<HouseQueryServiceModel> AllAsync(
+            string category = null,
+            string searchTerm = null,
+            HouseSorting sorting = HouseSorting.Newest,
+            int currentPage = 1,
+            int housesPerPage = 1);
+
+        Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        Task<IEnumerable<HouseServiceModel>> AllHousesByAgentIdAsync(int agentId);
+
+        Task<IEnumerable<HouseServiceModel>> AllHousesByUserIdAsync(string userId);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task<HouseDetailsServiceModel> HouseDetailsByIdAsync(int id);
+
+        Task EditAsync(int houseId, HouseFormModel model);
+
+        Task<bool> HasAgentWithIdAsync(int houseId, string userId);
+
+        Task<HouseFormModel?> GetHouseFormModelByIdAsync(int id);
+
+        Task Delete(int houseId);
+
+        Task<HouseDetailsViewModel?> GetHouseDetailsViewModelByIdAsync(int id);
+
+        Task<bool> IsRentedAsync(int id);
+
+        Task<bool> IsRentedByUserWithIdAsync(int houseId, string userId);
+
+        Task Rent(int houseId, string userId);
+
+        Task Leave(int houseId);
     }
 }
