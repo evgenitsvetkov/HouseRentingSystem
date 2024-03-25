@@ -172,7 +172,15 @@ namespace HouseRentingSystem.Controllers
                 return Unauthorized();
             }
 
-            var model = await houseService.GetHouseDetailsViewModelByIdAsync(id);
+            var house = await houseService.GetHouseDetailsViewModelByIdAsync(id);
+
+            var model = new HouseDetailsViewModel()
+            {
+                Id = id,
+                Title = house.Title,
+                Address = house.Address,
+                ImageUrl = house.ImageUrl
+            };
 
             return View(model);
         }
@@ -190,7 +198,7 @@ namespace HouseRentingSystem.Controllers
                 return Unauthorized();
             }
 
-            await houseService.Delete(model.Id);
+            await houseService.DeleteAsync(model.Id);
 
             return RedirectToAction(nameof(All));
         }
