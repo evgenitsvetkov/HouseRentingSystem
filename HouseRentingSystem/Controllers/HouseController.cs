@@ -221,9 +221,9 @@ namespace HouseRentingSystem.Controllers
                 return BadRequest();
             }
 
-            await houseService.Rent(id, User.Id());
+            await houseService.RentAsync(id, User.Id());
 
-            return RedirectToAction(nameof(Mine));
+            return RedirectToAction(nameof(All));
         }
 
         [HttpPost()]
